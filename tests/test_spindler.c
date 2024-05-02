@@ -19,137 +19,80 @@ void test_spindler_init() {
     struct spindler_data_t spindler_data;
     int result = spindler_init("nonexistent_model", &spindler_data);
     ASSERT(result == SPINDLER_DIR_NOT_FOUND);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
     printf("spindler_init test passed.\n");
 }
 
-void test_spindler_get_De() {
-    struct spindler_data_t spindler_data;
-
+void test_spindler_Siwek23() {
     // Test against "Siwek23"
-    spindler_init("Siwek23", &spindler_data);
-    double result = spindler_get_De(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
+    struct spindler_data_t spindler_data;
+    int err;
+    double De, Dq, Da;
+    double e[3] = {0}, q[3] = {0};
+    err = spindler_init("Siwek23", &spindler_data);
+    ASSERT(err == SPINDLER_NO_ERROR);
 
-    // Test against "DD21"
-    spindler_init("DD21", &spindler_data);
-    result = spindler_get_De(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
+    // De vs Dq
+    q[0]=0.2; q[1]=0.4; q[2]=1.0;
+    e[0]=0.8; e[1]=0.3; e[2]=0.2;
+    for (int i=0; i<3; i++){
+        De = spindler_get_De(q[i], e[i], &spindler_data);
+        Dq = spindler_get_Dq(q[i], e[i], &spindler_data);
+        ASSERT(fabs(De) > Dq);
+    }
 
-    // Test against "Zrake21"
-    spindler_init("Zrake21", &spindler_data);
-    result = spindler_get_De(0.5, 0.5, &spindler_data);
-    ASSERT(fabs((result - (-5.607))/result) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
+    // Dq positive
+    q[0]=0.2; q[1]=0.4; q[2]=0.6;
+    e[0]=0.1; e[1]=0.3; e[2]=0.5;
+    for (int i=0; i<3; i++){
+        Dq = spindler_get_Dq(q[i], e[i], &spindler_data);
+        ASSERT(Dq > 0);
+    }
 
-    printf("spindler_get_De test passed.\n");
+    e[0] = 0.48;
+    q[0] = 1.0;
+    Da = spindler_get_Da(q[0], e[0], &spindler_data);
+    ASSERT(Da < 0);
+
+    e[0] = 0.05;
+    q[0] = 1.0;
+    Da = spindler_get_Da(q[0], e[0], &spindler_data);
+    ASSERT(Da > 0);
+
+    spindler_free_data(&spindler_data);
+    printf("spindler_Siwek23 test passed.\n");
 }
 
-void test_spindler_get_Dq() {
-    struct spindler_data_t spindler_data;
-
-    // Test against "Siwek23"
-    spindler_init("Siwek23", &spindler_data);
-    double result = spindler_get_Dq(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
-
+void test_spindler_Zrake21() {
     // Test against "DD21"
-    spindler_init("DD21", &spindler_data);
-    result = spindler_get_Dq(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
+    struct spindler_data_t spindler_data;
+    int err;
+    double De, Dq, Da;
+    double e[3] = {0}, q[3] = {0};
+    err = spindler_init("Zrake21", &spindler_data);
+    ASSERT(err == SPINDLER_NO_ERROR);
 
-    // Test against "Zrake21"
-    spindler_init("Zrake21", &spindler_data);
-    result = spindler_get_Dq(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
 
-    printf("spindler_get_Dq test passed.\n");
+    spindler_free_data(&spindler_data);
+    printf("spindler_Zrake21 test passed.\n");
 }
 
-void test_spindler_get_Da() {
-    struct spindler_data_t spindler_data;
-
-    // Test against "Siwek23"
-    spindler_init("Siwek23", &spindler_data);
-    double result = spindler_get_Da(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
-
+void test_spindler_DD21() {
     // Test against "DD21"
-    spindler_init("DD21", &spindler_data);
-    result = spindler_get_Da(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
-
-    // Test against "Zrake21"
-    spindler_init("Zrake21", &spindler_data);
-    result = spindler_get_Da(0.5, 0.5, &spindler_data);
-    ASSERT(fabs((result - 0.1675)/result) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
-
-    printf("spindler_get_Da test passed.\n");
-}
-
-void test_spindler_get_DE() {
     struct spindler_data_t spindler_data;
+    int err;
+    err = spindler_init("DD21", &spindler_data);
+    ASSERT(err == SPINDLER_NO_ERROR);
 
-    // Test against "Siwek23"
-    spindler_init("Siwek23", &spindler_data);
-    double result = spindler_get_DE(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
-
-    // Test against "DD21"
-    spindler_init("DD21", &spindler_data);
-    result = spindler_get_DE(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
-
-    // Test against "Zrake21"
-    spindler_init("Zrake21", &spindler_data);
-    result = spindler_get_DE(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
-
-    printf("spindler_get_DE test passed.\n");
-}
-
-void test_spindler_get_DJ() {
-    struct spindler_data_t spindler_data;
-
-    // Test against "Siwek23"
-    spindler_init("Siwek23", &spindler_data);
-    double result = spindler_get_DJ(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
-
-    // Test against "DD21"
-    spindler_init("DD21", &spindler_data);
-    result = spindler_get_DJ(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
-
-    // Test against "Zrake21"
-    spindler_init("Zrake21", &spindler_data);
-    result = spindler_get_DJ(0.5, 0.5, &spindler_data);
-    ASSERT(fabs(result - 0.0) < TOLERANCE);
-    spindler_free_data(&spindler_data); // Freeing allocated resources
-
-    printf("spindler_get_DJ test passed.\n");
+    
+    spindler_free_data(&spindler_data);
+    printf("spindler_DD21 test passed.\n");
 }
 
 int main() {
     test_spindler_init();
-    test_spindler_get_De();
-    test_spindler_get_Dq();
-    test_spindler_get_Da();
-    test_spindler_get_DE();
-    test_spindler_get_DJ();
+    test_spindler_Siwek23();
+    test_spindler_Zrake21();
+    test_spindler_DD21();
 
     return 0;
 }

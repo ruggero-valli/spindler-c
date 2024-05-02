@@ -220,7 +220,7 @@ double spindler_interpolate(double q, double e, struct spindler_interpolator_t* 
     int usecache = 0;
     
     /* Fill the x array with the coordinates of the point to interpolate */
-    for (int i=0; i<N; i++){
+    for (int i=0; i<(int)N; i++){
         if (strcmp(interp->parameter_names[i], "e") == 0){
             x[i] = e;
         } else if (strcmp(interp->parameter_names[i], "q") == 0){
@@ -307,8 +307,6 @@ double spindler_get_Da(double q, double e, struct spindler_data_t* spindler_data
  * @return dlogE/dlogm 
  */
 double spindler_get_DE(double q, double e, struct spindler_data_t* spindler_data){
-    struct spindler_interpolator_t* adota_interp = (spindler_data->adota_interp);
-    struct spindler_interpolator_t* qdot_interp = (spindler_data->qdot_interp);
     double Da = spindler_get_Da(q,e, spindler_data);
     double Dq = spindler_get_Dq(q,e, spindler_data);
 

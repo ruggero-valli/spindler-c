@@ -5,7 +5,11 @@
 int main(){
     char* model_name = "Zrake21";
     struct spindler_data_t* spindler_data = calloc(1, sizeof(struct spindler_data_t));
-    spindler_init(model_name, spindler_data);
+    int err;
+    err = spindler_init(model_name, spindler_data);
+    if (err != SPINDLER_NO_ERROR){
+        return 1;
+    }
 
     double q=0.5, e=0.5;
     double Dq, De, Da, DE, DJ;
