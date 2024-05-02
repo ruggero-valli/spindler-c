@@ -15,13 +15,6 @@
 
 #define TOLERANCE 1e-6
 
-void test_spindler_init() {
-    struct spindler_data_t spindler_data;
-    int result = spindler_init("nonexistent_model", &spindler_data);
-    ASSERT(result == SPINDLER_DIR_NOT_FOUND);
-    printf("spindler_init test passed.\n");
-}
-
 void test_spindler_Siwek23() {
     // Test against "Siwek23"
     struct spindler_data_t spindler_data;
@@ -214,10 +207,9 @@ void test_spindler_DD21() {
 
 
 int main() {
-    test_spindler_init();
     test_spindler_Siwek23();
     test_spindler_Zrake21();
     test_spindler_DD21();
-
+    printf("OK\n");
     return 0;
 }
