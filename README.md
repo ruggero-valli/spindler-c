@@ -11,7 +11,7 @@ Spindler-c requires a working installation of librinterplate by Robert Izzard (h
 ## Installation:
 ```bash
 git clone https://github.com/ruggero-valli/spindler-c.git
-cd spindler
+cd spindler-c
 make
 ```
 You can test wether the installation was succesfull by running
