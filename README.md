@@ -1,4 +1,4 @@
-# Spindler
+# Spindler-c V 1.0.0
 The c version of the spindler (https://github.com/ruggero-valli/spindler) package, used to compute the long-term orbital evolution of a binary interacting with a circumbinary disk.
 The aim of this library is to facilitate the integration of the spindler functionalities
 into c or Fortran-based codes.
