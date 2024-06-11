@@ -3,7 +3,10 @@ The c version of the spindler (https://github.com/ruggero-valli/spindler) packag
 The aim of this library is to facilitate the integration of the spindler functionalities
 into c or Fortran-based codes.
 
-Based on Valli et al. 2024 (in prep)
+
+Based on [Valli et al. 2024](https://arxiv.org/abs/2401.17355).
+
+Find the python version at https://github.com/ruggero-valli/spindler
 
 ## Requirements:
 Spindler-c requires a working installation of librinterplate by Robert Izzard (https://gitlab.com/rob.izzard/librinterpolate)
