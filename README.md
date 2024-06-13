@@ -47,7 +47,7 @@ The spindler-c is similar to the corresponding python package. It provides
 functions to compute the derivatives of the orbital parameters, exactly as in
 the python version.
 
-It doens't include the functionality to integrate these derivatives.
+It doesn't include the functionality to integrate these derivatives.
 
 ## Example usage
 
@@ -73,7 +73,8 @@ int main(){
     // Pick a mass ration and an eccentricity
     double q=0.5, e=0.5;
 
-    // Compute their derivatives
+    // Compute the derivatives of the orbital parameters at the given
+    // eccentricity and mass ratio.
     double Dq, De, Da, DE, DJ;
     Dq = spindler_get_Dq(q, e, spindler_data);
     De = spindler_get_De(q, e, spindler_data);
