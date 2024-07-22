@@ -1,3 +1,15 @@
 *.o
 *.so
 build/test
+builddir
+GPATH
+GRTAGS
+GTAGS
+compile_commands.json
+include/#*
+include/.#*
+src/#*
+src/.#*
+*~
+
+
