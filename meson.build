@@ -224,10 +224,10 @@ required_libraries = {}
 shared_lib_args = []
 
 ############################################################
-# require Meson 0.56.0 or later
+# require Meson 1.1 or later
 #
 find_program('meson',
-             version: '>=0.56')
+             version: '>=1.1')
 
 ############################################################
 # require Ninja 1.10.0 or later
