@@ -1,0 +1,31 @@
+
+# Meson options for spindler-c
+
+option('accurate',
+       type : 'boolean',
+       value: false,
+       description: 'Accurate mathematics mode: compiler options are chosen to keep calculations as accurate as possible.')
+option('generic',
+       type : 'boolean',
+       value: false,
+       description: 'Turns off CPU-specific optimization so that the executable can be used on different (but similar) platforms. Useful for condor/slurm clusters where all CPUs are, e.g., x86_64 compatible.')
+option('valgrind',
+       type: 'boolean',
+       value: false,
+       description: 'Turns on/off CPU-specific instruction sets that are not compatible with Valgrind.')
+option('gprof',
+       type: 'boolean',
+       value: false,
+       description: 'Turns on/off support for gprof')
+option('address_sanitizer',
+       type : 'boolean',
+       value : false,
+       description : 'Turns on support for Clang\'s address sanitizer.')
+option('libname',
+       type : 'string',
+       value : 'spindler',
+       description : 'The spindler shared-library name, usually "spindler" to give a file libspindler.so (on Linux).')
+option('allow_libs',
+       type : 'boolean',
+       value : true,
+       description : 'When using the generic option, external libraries are usually disabled (so you can copy the executable elsewhere). Turning allow_libs on allows one to have a generic build, i.e. independent of architecture details, but *with* external libraries (e.g. libbacktrace) used.')
