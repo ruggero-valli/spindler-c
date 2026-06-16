@@ -46,10 +46,12 @@ int parseLine(const char *line, char ***tokens, int *count, bool isWhitespaceSep
         return 1;
     }
 
+    char separatorString[2] = { separator, '\0' };
+
     if (isWhitespaceSeparated) {
         token = strtok(linecopy, " \t\n");
     } else {
-        token = strtok(linecopy, &separator);
+        token = strtok(linecopy, separatorString);
     }
     while (token != NULL) {
         if (*count >= allocated) {
@@ -73,7 +75,7 @@ int parseLine(const char *line, char ***tokens, int *count, bool isWhitespaceSep
         if (isWhitespaceSeparated) {
             token = strtok(NULL, " \t\n");
         } else {
-            token = strtok(NULL, &separator);
+            token = strtok(NULL, separatorString);
         }
     }
     free(linecopy);
